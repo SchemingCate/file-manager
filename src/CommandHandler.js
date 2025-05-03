@@ -7,7 +7,9 @@ export class CommandHandler {
     this.directory_operations = directory_operations;
 
     this.commandsMap = {
-      ls: this.directory_operations.printAllFilesInDir,
+      ls: this.directory_operations.printAllFilesInDir.bind(
+        this.directory_operations
+      ),
     };
   }
 
