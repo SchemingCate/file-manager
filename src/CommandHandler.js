@@ -16,6 +16,6 @@ export class CommandHandler {
   handleCommand(command) {
     const mapped = this.commandsMap[command];
     if (mapped) mapped();
-    else console.log(command.toUpperCase());
+    else console.log(command.toUpperCase()); //TODO - remove
   }
 }
