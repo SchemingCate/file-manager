@@ -1,7 +1,7 @@
 import { argv } from "node:process";
 import { Messenger } from "./Messenger.js";
 import { Readline } from "./Readline.js";
-
+import { DirectoryOperations } from "./DirectoryOperations.js";
 export class FileManager {
   startupArguments = {};
   username = "";
@@ -10,6 +10,7 @@ export class FileManager {
   // class instances
   messenger;
   readline;
+  directory_operations;
 
   constructor() {
     this.init();
@@ -19,7 +20,8 @@ export class FileManager {
     this.setStartupArguments(argv);
     this.username = this.startupArguments["username"];
 
-    this.messenger = new Messenger(this.username);
+    this.directory_operations = new DirectoryOperations();
+    this.messenger = new Messenger(this.username, this.directory_operations);
     this.readline = new Readline(this.messenger);
   }
 
