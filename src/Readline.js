@@ -1,5 +1,4 @@
 import { createInterface } from "node:readline";
-import { CommandHandler } from "./commandHandler.js";
 
 export class Readline {
   exitCommand = "";
@@ -9,9 +8,9 @@ export class Readline {
   messenger;
   command_handler;
 
-  constructor(messenger) {
+  constructor(messenger, command_handler) {
     this.messenger = messenger;
-    this.command_handler = new CommandHandler();
+    this.command_handler = command_handler;
 
     this.exitCommand = ".exit";
     this.readline = createInterface({

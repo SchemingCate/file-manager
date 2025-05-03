@@ -6,4 +6,8 @@ export class DirectoryOperations {
   constructor() {
     this.currentDirectory = homedir();
   }
+
+  printAllFilesInDir() {
+    console.log("file and folder list");
+  }
 }

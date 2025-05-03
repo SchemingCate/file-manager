@@ -1,7 +1,19 @@
 export class CommandHandler {
-  constructor() {}
+  directory_operations;
+
+  commandsMap;
+
+  constructor(directory_operations) {
+    this.directory_operations = directory_operations;
+
+    this.commandsMap = {
+      ls: this.directory_operations.printAllFilesInDir,
+    };
+  }
 
   handleCommand(command) {
-    console.log(command.toUpperCase());
+    const mapped = this.commandsMap[command];
+    if (mapped) mapped();
+    else console.log(command.toUpperCase());
   }
 }
