@@ -28,8 +28,8 @@ export class CommandHandler {
         return;
       }
 
-      mapped(args)
+      mapped(...args)
         .then(() => this.messenger.directory())
-        .catch(() => console.log("Invalid input"));
+        .catch((err) => console.log(`Invalid input: ${err.message}`));
   }
 }
