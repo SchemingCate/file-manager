@@ -23,8 +23,8 @@ export class FileManager {
     this.username = this.startupArguments["username"];
 
     this.directory_operations = new DirectoryOperations();
-    this.command_handler = new CommandHandler(this.directory_operations);
     this.messenger = new Messenger(this.username, this.directory_operations);
+    this.command_handler = new CommandHandler(this.directory_operations, this.messenger);
     this.readline = new Readline(this.messenger, this.command_handler);
   }
 

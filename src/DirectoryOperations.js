@@ -8,8 +8,10 @@ export class DirectoryOperations {
     this.currentDirectory = homedir();
   }
 
-  async printAllFilesInDir() {
-    readdir(this.currentDirectory, { withFileTypes: true }).then((files) => {
+  async printAllFilesInDir(args) {
+    if (args.length) throw new Error('Invalid amount of arguments');
+
+    return readdir(this.currentDirectory, { withFileTypes: true }).then((files) => {
       const filesArr = [];
       files.forEach((dirent) => {
         const direntObj = {};
