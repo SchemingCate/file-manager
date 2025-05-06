@@ -1,4 +1,4 @@
-import { EOL } from "node:os";
+import { EOL, cpus } from "node:os";
 
 export class SystemInfoOperations {
   argsMap;
@@ -6,6 +6,7 @@ export class SystemInfoOperations {
   constructor() {
     this.argsMap = {
       EOL: this.getEOL,
+      cpus: this.printCPUInfo,
     };
   }
 
@@ -27,5 +28,15 @@ export class SystemInfoOperations {
 
   getEOL() {
     console.log(EOL + `End of line: ${JSON.stringify(EOL)}`);
+  }
+
+  printCPUInfo() {
+    const cpusArr = cpus();
+    console.log(cpus());
+    console.log(EOL + `Overall amount of CPUs : ${cpusArr.length}` + EOL);
+
+    cpusArr.forEach((el, i) => {
+      console.log(`${i + 1}. ${el.model} ${el.speed / 100}GHz`);
+    });
   }
 }
