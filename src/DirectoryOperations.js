@@ -1,12 +1,14 @@
 import { homedir } from "node:os";
 import { readdir, access } from "node:fs/promises";
-import { resolve as resolvePath } from "node:path";
+import { resolve as resolvePath, sep as pathSeparator } from "node:path";
 
 export class DirectoryOperations {
+  homeDirectory;
   currentDirectory = "";
 
   constructor() {
-    this.currentDirectory = homedir();
+    this.homeDirectory = homedir();
+    this.currentDirectory = this.homeDirectory;
   }
 
   async printAllFilesInDir(args) {
@@ -55,5 +57,17 @@ export class DirectoryOperations {
       .catch((err) => {
         console.log(`Operation failed: ${err.message}`);
       });
+  }
+
+  async goUp(args) {
+    return new Promise((resolve) => {
+      if (args) throw new Error("Invalid amount of arguments");
+      if (this.currentDirectory === this.homeDirectory)
+        throw new Error("Cannot go up from the home directory");
+      const newPathArr = this.currentDirectory.split(pathSeparator);
+      newPathArr.pop();
+      this.currentDirectory = newPathArr.join(pathSeparator);
+      resolve();
+    });
   }
 }

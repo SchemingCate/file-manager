@@ -17,19 +17,24 @@ export class CommandHandler {
       cd: this.directory_operations.goToDirectory.bind(
         this.directory_operations
       ),
+      up: this.directory_operations.goUp.bind(this.directory_operations),
     };
   }
 
   handleInput(command, ...args) {
-      const mapped = this.commandsMap[command];
+    const mapped = this.commandsMap[command];
 
-      if (!mapped) {
-        console.log("Invalid input");
-        return;
-      }
+    if (!mapped) {
+      console.log("Invalid input");
+      return;
+    }
 
-      mapped(...args)
-        .then(() => this.messenger.directory())
-        .catch((err) => console.log(`Invalid input: ${err.message}`));
+    mapped(...args)
+      .catch((err) => {
+        console.log(`Invalid input: ${err.message}`);
+      })
+      .finally(()=> {
+        this.messenger.directory();
+      })
   }
 }
