@@ -1,3 +1,5 @@
+import { EOL } from "node:os";
+
 export class Messenger {
   username = "";
 
@@ -11,20 +13,22 @@ export class Messenger {
   }
 
   greet() {
-    console.log(`Welcome to File Manager, ${this.username}!\n`);
+    console.log(`Welcome to File Manager, ${this.username}!` + EOL);
     //TODO format username my_username > My Username
     //TODO ask username if no arguments on startup
   }
 
   goodbye() {
     console.log(
-      `\nThank you for using File Manager, ${this.username}, goodbye!\n`
+      EOL + `Thank you for using File Manager, ${this.username}, goodbye!` + EOL
     );
   }
 
   directory() {
     console.log(
-      `\nYou are currently in ${this.directory_operations.currentDirectory}\n`
+      EOL +
+        `You are currently in ${this.directory_operations.currentDirectory}` +
+        EOL
     );
   }
 }
