@@ -32,7 +32,6 @@ export class SystemInfoOperations {
 
   printCPUInfo() {
     const cpusArr = cpus();
-    console.log(cpus());
     console.log(EOL + `Overall amount of CPUs : ${cpusArr.length}` + EOL);
 
     cpusArr.forEach((el, i) => {
