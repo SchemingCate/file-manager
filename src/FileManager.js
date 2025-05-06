@@ -3,6 +3,7 @@ import { Messenger } from "./Messenger.js";
 import { Readline } from "./Readline.js";
 import { CommandHandler } from "./commandHandler.js";
 import { DirectoryOperations } from "./DirectoryOperations.js";
+import { SystemInfoOperations } from "./SystemInfoOperations.js";
 export class FileManager {
   startupArguments = {};
   username = "";
@@ -13,6 +14,7 @@ export class FileManager {
   readline;
   command_handler;
   directory_operations;
+  system_info_operations;
 
   constructor() {
     this.init();
@@ -22,9 +24,10 @@ export class FileManager {
     this.setStartupArguments(argv);
     this.username = this.startupArguments["username"];
 
+    this.system_info_operations = new SystemInfoOperations();
     this.directory_operations = new DirectoryOperations();
     this.messenger = new Messenger(this.username, this.directory_operations);
-    this.command_handler = new CommandHandler(this.directory_operations, this.messenger);
+    this.command_handler = new CommandHandler(this.directory_operations, this.messenger, this.system_info_operations);
     this.readline = new Readline(this.messenger, this.command_handler);
   }
 

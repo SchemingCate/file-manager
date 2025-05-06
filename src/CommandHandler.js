@@ -3,12 +3,14 @@ import { argv } from "node:process";
 export class CommandHandler {
   directory_operations;
   messenger;
+  system_info_operations;
 
   commandsMap;
 
-  constructor(directory_operations, messenger) {
+  constructor(directory_operations, messenger, system_info_operations) {
     this.directory_operations = directory_operations;
     this.messenger = messenger;
+    this.system_info_operations = system_info_operations;
 
     this.commandsMap = {
       ls: this.directory_operations.printAllFilesInDir.bind(
@@ -18,6 +20,9 @@ export class CommandHandler {
         this.directory_operations
       ),
       up: this.directory_operations.goUp.bind(this.directory_operations),
+      os: this.system_info_operations.execSystemInfoOperation.bind(
+        this.system_info_operations
+      ),
     };
   }
 
@@ -33,8 +38,8 @@ export class CommandHandler {
       .catch((err) => {
         console.log(`Invalid input: ${err.message}`);
       })
-      .finally(()=> {
+      .finally(() => {
         this.messenger.directory();
-      })
+      });
   }
 }
