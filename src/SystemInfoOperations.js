@@ -1,4 +1,4 @@
-import { EOL, cpus } from "node:os";
+import { EOL, cpus, homedir } from "node:os";
 
 export class SystemInfoOperations {
   argsMap;
@@ -7,6 +7,7 @@ export class SystemInfoOperations {
     this.argsMap = {
       EOL: this.printEOL,
       cpus: this.printCPUInfo,
+      homedir: this.printHomeDir,
     };
   }
 
@@ -37,5 +38,9 @@ export class SystemInfoOperations {
     cpusArr.forEach((el, i) => {
       console.log(`${i + 1}. ${el.model} ${el.speed / 100}GHz`);
     });
+  }
+
+  printHomeDir() {
+    console.log(EOL + `Home directory: ${homedir()}`);
   }
 }
