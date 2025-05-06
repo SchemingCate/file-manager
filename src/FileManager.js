@@ -4,12 +4,15 @@ import { Readline } from "./Readline.js";
 import { CommandHandler } from "./commandHandler.js";
 import { DirectoryOperations } from "./DirectoryOperations.js";
 import { SystemInfoOperations } from "./SystemInfoOperations.js";
+import { PathManager } from "./PathManager.js";
+
 export class FileManager {
   startupArguments = {};
   username = "";
   rl;
 
   // class instances
+  path_manager;
   messenger;
   readline;
   command_handler;
@@ -24,10 +27,15 @@ export class FileManager {
     this.setStartupArguments(argv);
     this.username = this.startupArguments["username"];
 
+    this.path_manager = new PathManager();
     this.system_info_operations = new SystemInfoOperations();
-    this.directory_operations = new DirectoryOperations();
-    this.messenger = new Messenger(this.username, this.directory_operations);
-    this.command_handler = new CommandHandler(this.directory_operations, this.messenger, this.system_info_operations);
+    this.directory_operations = new DirectoryOperations(this.path_manager);
+    this.messenger = new Messenger(this.username, this.path_manager);
+    this.command_handler = new CommandHandler(
+      this.directory_operations,
+      this.messenger,
+      this.system_info_operations
+    );
     this.readline = new Readline(this.messenger, this.command_handler);
   }
 

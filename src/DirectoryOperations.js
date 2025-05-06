@@ -1,20 +1,17 @@
-import { homedir } from "node:os";
 import { readdir, access } from "node:fs/promises";
 import { resolve as resolvePath, sep as pathSeparator } from "node:path";
 
 export class DirectoryOperations {
-  homeDirectory;
-  currentDirectory = "";
+  path_manager;
 
-  constructor() {
-    this.homeDirectory = homedir();
-    this.currentDirectory = this.homeDirectory;
+  constructor(path_manager) {
+    this.path_manager = path_manager;
   }
 
   async printAllFilesInDir(args) {
     if (args) throw new Error("Invalid amount of arguments");
 
-    return readdir(this.currentDirectory, { withFileTypes: true })
+    return readdir(this.path_manager.currentDirectory, { withFileTypes: true })
       .then((files) => {
         const filesArr = [];
         files.forEach((dirent) => {
@@ -48,11 +45,11 @@ export class DirectoryOperations {
   async goToDirectory(path, ...args) {
     if (!path || args.length) throw new Error("Invalid amount of arguments");
 
-    const resP = resolvePath(this.currentDirectory, path);
+    const resP = resolvePath(this.path_manager.currentDirectory, path);
 
     return access(resP)
       .then(() => {
-        this.currentDirectory = resP;
+        this.path_manager.currentDirectory = resP;
       })
       .catch((err) => {
         console.log(`Operation failed: ${err.message}`);
@@ -62,11 +59,14 @@ export class DirectoryOperations {
   async goUp(args) {
     return new Promise((resolve) => {
       if (args) throw new Error("Invalid amount of arguments");
-      if (this.currentDirectory === this.homeDirectory)
+      if (
+        this.path_manager.currentDirectory === this.path_manager.homeDirectory
+      )
         throw new Error("Cannot go up from the home directory");
-      const newPathArr = this.currentDirectory.split(pathSeparator);
+      const newPathArr =
+        this.path_manager.currentDirectory.split(pathSeparator);
       newPathArr.pop();
-      this.currentDirectory = newPathArr.join(pathSeparator);
+      this.path_manager.currentDirectory = newPathArr.join(pathSeparator);
       resolve();
     });
   }

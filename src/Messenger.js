@@ -3,11 +3,11 @@ import { EOL } from "node:os";
 export class Messenger {
   username = "";
 
-  directory_operations;
+  path_manager;
 
-  constructor(username, directory_operations) {
+  constructor(username, path_manager) {
     this.username = username ? username : "Anonymous";
-    this.directory_operations = directory_operations;
+    this.path_manager = path_manager;
     this.greet();
     this.directory();
   }
@@ -26,9 +26,7 @@ export class Messenger {
 
   directory() {
     console.log(
-      EOL +
-        `You are currently in ${this.directory_operations.currentDirectory}` +
-        EOL
+      EOL + `You are currently in ${this.path_manager.currentDirectory}` + EOL
     );
   }
 }

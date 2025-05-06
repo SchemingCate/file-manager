@@ -1,5 +1,3 @@
-import { argv } from "node:process";
-
 export class CommandHandler {
   directory_operations;
   messenger;
