@@ -5,7 +5,7 @@ export class SystemInfoOperations {
 
   constructor() {
     this.argsMap = {
-      EOL: this.getEOL,
+      EOL: this.printEOL,
       cpus: this.printCPUInfo,
     };
   }
@@ -26,7 +26,7 @@ export class SystemInfoOperations {
     });
   }
 
-  getEOL() {
+  printEOL() {
     console.log(EOL + `End of line: ${JSON.stringify(EOL)}`);
   }
 
