@@ -37,7 +37,7 @@ export class SystemInfoOperations {
     console.log(EOL + `Overall amount of CPUs : ${cpusArr.length}` + EOL);
 
     cpusArr.forEach((el, i) => {
-      console.log(`${i + 1}. ${el.model} ${el.speed / 100}GHz`);
+      console.log(`${i + 1}. ${el.model} ${el.speed / 1000}GHz`);
     });
   }
 
