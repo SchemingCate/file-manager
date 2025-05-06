@@ -6,7 +6,7 @@ export class Messenger {
   directory_operations;
 
   constructor(username, directory_operations) {
-    this.username = username;
+    this.username = username ? username : "Anonymous";
     this.directory_operations = directory_operations;
     this.greet();
     this.directory();
