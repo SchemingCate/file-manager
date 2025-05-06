@@ -1,4 +1,4 @@
-import { EOL, cpus, homedir, userInfo } from "node:os";
+import { EOL, cpus, homedir, userInfo, arch } from "node:os";
 
 export class SystemInfoOperations {
   argsMap;
@@ -9,6 +9,7 @@ export class SystemInfoOperations {
       cpus: this.printCPUInfo,
       homedir: this.printHomeDir,
       username: this.printSystemUsername,
+      architecture: this.printCPUArch,
     };
   }
 
@@ -47,5 +48,9 @@ export class SystemInfoOperations {
 
   printSystemUsername() {
     console.log(EOL + `Your system username: ${userInfo().username}`);
+  }
+
+  printCPUArch() {
+    console.log(EOL + `CPU architecture: ${arch()}`);
   }
 }
