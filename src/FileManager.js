@@ -2,11 +2,11 @@ import { argv } from "node:process";
 import { Messenger } from "./Messenger.js";
 import { Readline } from "./Readline.js";
 import { CommandHandler } from "./CommandHandler.js";
-import { DirectoryOperations } from "./DirectoryOperations.js";
-import { SystemInfoOperations } from "./SystemInfoOperations.js";
+import { DirectoryOperations } from "./operations/DirectoryOperations.js";
+import { SystemInfoOperations } from "./operations/SystemInfoOperations.js";
 import { PathManager } from "./PathManager.js";
-import { HashOperations } from "./HashOperations.js";
-import { FileOperations } from "./FileOperations.js";
+import { HashOperations } from "./operations/HashOperations.js";
+import { FileOperations } from "./operations/FileOperations.js";
 
 export class FileManager {
   startupArguments = {};
