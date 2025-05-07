@@ -47,6 +47,7 @@ export class DirectoryOperations {
 
     const resP = resolvePath(this.path_manager.currentDirectory, path);
 
+    //TODO refactor
     return access(resP)
       .then(() => {
         this.path_manager.currentDirectory = resP;

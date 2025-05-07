@@ -1,30 +1,32 @@
-import { access } from "node:fs/promises";
+import { lstat } from "node:fs/promises";
 import { homedir } from "node:os";
 import { resolve as resolvePath } from "node:path";
 
 export class PathManager {
-  homeDirectory = '';
-  currentDirectory = '';
-  // why need?
-  // - have current path
-  // - have home path
-  // - check if path exists
-  // - update current path
+  homeDirectory = "";
+  currentDirectory = "";
+
   constructor() {
     this.homeDirectory = homedir();
     this.currentDirectory = this.homeDirectory;
   }
 
-  isPathValid(path) {
-    //
+  async getValidPath(path, isFile = false) {
     const resP = resolvePath(this.currentDirectory, path);
 
-    access(resP)
-      .then(() => {
-        return true;
+    await lstat(resP)
+      .then((statsObj) => {
+        if (isFile && !statsObj.isFile()) {
+          throw new Error("Wrong file path");
+        }
+        if (!isFile && !statsObj.isDirectory()) {
+          throw new Error("No such directory");
+        }
+        return resP;
       })
       .catch((err) => {
-        return false
+        console.log(`Operation failed: ${err}`);
       });
+    return resP;
   }
 }

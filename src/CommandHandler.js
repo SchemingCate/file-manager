@@ -2,13 +2,15 @@ export class CommandHandler {
   directory_operations;
   messenger;
   system_info_operations;
+  hash_operations
 
   commandsMap;
 
-  constructor(directory_operations, messenger, system_info_operations) {
+  constructor(directory_operations, messenger, system_info_operations, hash_operations) {
     this.directory_operations = directory_operations;
     this.messenger = messenger;
     this.system_info_operations = system_info_operations;
+    this.hash_operations = hash_operations;
 
     this.commandsMap = {
       ls: this.directory_operations.printAllFilesInDir.bind(
@@ -21,6 +23,7 @@ export class CommandHandler {
       os: this.system_info_operations.execSystemInfoOperation.bind(
         this.system_info_operations
       ),
+      hash: this.hash_operations.calculateHash.bind(this.hash_operations),
     };
   }
 
