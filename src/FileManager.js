@@ -6,6 +6,7 @@ import { DirectoryOperations } from "./DirectoryOperations.js";
 import { SystemInfoOperations } from "./SystemInfoOperations.js";
 import { PathManager } from "./PathManager.js";
 import { HashOperations } from "./HashOperations.js";
+import { FileOperations } from "./FileOperations.js";
 
 export class FileManager {
   startupArguments = {};
@@ -20,6 +21,7 @@ export class FileManager {
   directory_operations;
   system_info_operations;
   hash_operations;
+  file_operations;
 
   constructor() {
     this.init();
@@ -30,6 +32,7 @@ export class FileManager {
     this.username = this.startupArguments["username"];
 
     this.path_manager = new PathManager();
+    this.file_operations = new FileOperations(this.path_manager);
     this.hash_operations = new HashOperations(this.path_manager);
     this.system_info_operations = new SystemInfoOperations();
     this.directory_operations = new DirectoryOperations(this.path_manager);
@@ -39,6 +42,7 @@ export class FileManager {
       this.messenger,
       this.system_info_operations,
       this.hash_operations,
+      this.file_operations,
     );
     this.readline = new Readline(this.messenger, this.command_handler);
   }
