@@ -34,6 +34,7 @@ export class CommandHandler {
       hash: this.hash_operations.calculateHash.bind(this.hash_operations),
       cat: this.file_operations.printFileContent.bind(this.file_operations),
       add: this.file_operations.createFile.bind(this.file_operations),
+      mkdir: this.file_operations.createNewDirectory.bind(this.file_operations),
     };
   }
 

@@ -1,5 +1,5 @@
 import { createReadStream } from "node:fs";
-import { writeFile } from "node:fs/promises";
+import { writeFile, mkdir } from "node:fs/promises";
 import { EOL } from "node:os";
 import { join as joinPath } from "node:path";
 
@@ -35,5 +35,14 @@ export class FileOperations {
       joinPath(this.path_manager.currentDirectory, `${name}.txt`),
       ""
     );
+  }
+
+  async createNewDirectory(directoryName, ...args) {
+    if (!directoryName || args.length)
+      throw new Error("Invalid amount of arguments");
+
+    return mkdir(
+      joinPath(this.path_manager.currentDirectory, directoryName)
+    ).catch((err) => console.log(`Operation failed: ${err}`));
   }
 }
