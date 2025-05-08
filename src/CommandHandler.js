@@ -35,6 +35,7 @@ export class CommandHandler {
       cat: this.file_operations.printFileContent.bind(this.file_operations),
       add: this.file_operations.createFile.bind(this.file_operations),
       mkdir: this.file_operations.createNewDirectory.bind(this.file_operations),
+      rn: this.file_operations.renameFile.bind(this.file_operations),
     };
   }
 

@@ -1,7 +1,7 @@
 import { createReadStream } from "node:fs";
-import { writeFile, mkdir } from "node:fs/promises";
+import { writeFile, mkdir, rename as renameDir } from "node:fs/promises";
 import { EOL } from "node:os";
-import { join as joinPath } from "node:path";
+import { join as joinPath, dirname } from "node:path";
 
 export class FileOperations {
   path_manager;
@@ -44,5 +44,16 @@ export class FileOperations {
     return mkdir(
       joinPath(this.path_manager.currentDirectory, directoryName)
     ).catch((err) => console.log(`Operation failed: ${err}`));
+  }
+
+  async renameFile(pathToFile, newFilename, ...args) {
+    if (!pathToFile || !newFilename || args.length)
+      throw new Error("Invalid amount of arguments");
+
+    const path = await this.path_manager.getValidPath(pathToFile, true);
+
+    renameDir(path, joinPath(dirname(path), newFilename)).catch((err) => {
+      console.log(`Operation failed: ${err}`);
+    });
   }
 }
