@@ -1,5 +1,7 @@
 import { createReadStream } from "node:fs";
+import { writeFile } from "node:fs/promises";
 import { EOL } from "node:os";
+import { join as joinPath } from "node:path";
 
 export class FileOperations {
   path_manager;
@@ -24,5 +26,14 @@ export class FileOperations {
         console.log(content);
       });
     });
+  }
+
+  async createFile(name, ...args) {
+    if (!name || args.length) throw new Error("Invalid amount of arguments");
+
+    return writeFile(
+      joinPath(this.path_manager.currentDirectory, `${name}.txt`),
+      ""
+    );
   }
 }
