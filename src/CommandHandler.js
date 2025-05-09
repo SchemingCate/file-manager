@@ -13,7 +13,7 @@ export class CommandHandler {
     system_info_operations,
     hash_operations,
     file_operations,
-    compression_operations,
+    compression_operations
   ) {
     this.directory_operations = directory_operations;
     this.messenger = messenger;
@@ -41,7 +41,12 @@ export class CommandHandler {
       cp: this.file_operations.copyFile.bind(file_operations),
       rm: this.file_operations.deleteFile.bind(file_operations),
       mv: this.file_operations.moveFile.bind(file_operations),
-      compress: this.compression_operations.compressFileWithBrotli.bind(compression_operations),
+      compress: this.compression_operations.compressFileWithBrotli.bind(
+        compression_operations
+      ),
+      decompress: this.compression_operations.decompressFileWithBrotli.bind(
+        compression_operations
+      ),
     };
   }
 
