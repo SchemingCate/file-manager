@@ -89,7 +89,6 @@ export class FileOperations {
     if (!pathToFile || !pathToNewDirectory || args.length)
       throw new Error("Invalid amount of arguments");
 
-    // copy fil
     const path = await this.path_manager.getValidPath(pathToFile, true);
 
     const newPath = joinPath(
