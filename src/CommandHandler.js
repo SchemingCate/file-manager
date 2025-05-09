@@ -38,6 +38,7 @@ export class CommandHandler {
       rn: this.file_operations.renameFile.bind(this.file_operations),
       cp: this.file_operations.copyFile.bind(file_operations),
       rm: this.file_operations.deleteFile.bind(file_operations),
+      mv: this.file_operations.moveFile.bind(file_operations),
     };
   }
 

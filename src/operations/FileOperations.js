@@ -84,4 +84,25 @@ export class FileOperations {
 
     return rm(path).catch((err) => console.log(`Operation failed: ${err}`));
   }
+
+  async moveFile(pathToFile, pathToNewDirectory, ...args) {
+    if (!pathToFile || !pathToNewDirectory || args.length)
+      throw new Error("Invalid amount of arguments");
+
+    // copy fil
+    const path = await this.path_manager.getValidPath(pathToFile, true);
+
+    const newPath = joinPath(
+      await this.path_manager.getValidPath(pathToNewDirectory),
+      basename(path)
+    );
+
+    await pipeline(createReadStream(path), createWriteStream(newPath)).catch(
+      (err) => {
+        console.log(`Operation failed:${err}`);
+      }
+    );
+
+    await rm(path).catch((err) => console.log(`Operation failed: ${err}`));
+  }
 }
