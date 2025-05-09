@@ -1,5 +1,5 @@
 import { createReadStream, createWriteStream } from "node:fs";
-import { writeFile, mkdir, rename as renameDir } from "node:fs/promises";
+import { writeFile, mkdir, rename as renameDir, rm } from "node:fs/promises";
 import { EOL } from "node:os";
 import { join as joinPath, dirname, basename } from "node:path";
 import { pipeline } from "node:stream/promises";
@@ -74,5 +74,14 @@ export class FileOperations {
         console.log(`Operation failed:${err}`);
       }
     );
+  }
+
+  async deleteFile(pathToFile, ...args) {
+    if (!pathToFile || args.length)
+      throw new Error("Invalid amount of arguments");
+
+    const path = await this.path_manager.getValidPath(pathToFile, true);
+
+    return rm(path).catch((err) => console.log(`Operation failed: ${err}`));
   }
 }
